@@ -1,5 +1,8 @@
 {
   "presets": [
     ["vanilla", { "modules": "commonjs" }]
+  ],
+  "plugins": [
+    "dynamic-import-node"
   ]
 }

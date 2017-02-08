@@ -1,5 +1,7 @@
 import fs from "fs-promise";
 import webpack from "webpack";
+import nodeExternals from "webpack-node-externals";
+import ManifestPlugin from "webpack-manifest-plugin";
 
 import { resolve, resolveMake } from "../../utils/path";
 import { Config } from "../../utils/webpack";
@@ -56,13 +58,16 @@ const getEntry = async (entry) => {
 export default async () => {
   const env = Zone.current.get("env");
   const production = env === "production";
+  const cache = !production;
   const hot = env === "development";
   const side = Zone.current.get("side");
+  const server = side === "server";
+  const client = side === "client";
   const config = Zone.current.get("config");
   const plugins = Zone.current.get("plugins");
 
   const filenameTemplate =
-    production
+    client && production
       ? "assets/[name].[chunkhash:8].js"
       : "assets/[name].js";
 
@@ -78,10 +83,12 @@ export default async () => {
       publicPath: config.path.public,
       filename: filenameTemplate,
       chunkFilename: filenameTemplate,
-      libraryTarget: side === "server" ? "commonjs-module" : "var",
+      libraryTarget: server ? "commonjs-module" : "var",
     },
 
-    target: side === "server" ? "node" : "web",
+    target: server ? "node" : "web",
+
+    externals: server ? nodeExternals() : {},
 
     devtool:
       production
@@ -92,12 +99,29 @@ export default async () => {
   const manager = new Config({
     ...options,
 
+    cache,
+
     devServer: {
+      host: config.bind.client.host,
+      port: config.bind.client.port,
       publicPath: config.path.public,
       contentBase: resolve(config.path.static),
       hot,
       historyApiFallback: true,
     },
+  });
+
+  manager.rule("babel", {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: require.resolve("babel-loader"),
+        query: {
+          cacheDirectory: cache,
+        },
+      },
+    ],
   });
 
   manager.plugin(
@@ -121,6 +145,16 @@ export default async () => {
       "uglify-js",
       webpack.optimize.UglifyJsPlugin,
       { sourceMap: true },
+    );
+  }
+  if (client) {
+    manager.plugin(
+      "manifest",
+      ManifestPlugin,
+      {
+        publicPath: config.path.public,
+        writeToFileEmit: true,
+      },
     );
   }
 

@@ -1,4 +1,8 @@
 export default {
+  plugins: [],
+
+  webpack: null,
+
   path: {
     public: "/",
     static: "./static",
@@ -9,9 +13,7 @@ export default {
     server: "./entry/server",
   },
 
-  build: {},
-
-  server: {
+  bind: {
     client: {
       host: "127.0.0.1",
       port: 8081,

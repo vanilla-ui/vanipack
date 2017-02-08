@@ -6,10 +6,13 @@ import app from "../config/webpack/app";
 export default async ({
   env,
   side,
-  config: path,
-  plugins,
+  config: configFile,
 }) => {
-  const config = await getConfig(path);
+  const config = await getConfig(configFile);
+  const plugins = await Promise.all((
+    config.plugins
+      .map(async name => (await import(name)).default)
+  ));
   const zone = Zone.current.fork({
     properties: {
       env,

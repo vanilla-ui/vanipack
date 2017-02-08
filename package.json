@@ -2,18 +2,29 @@
   "name": "vanilla-make",
   "version": "0.0.0",
   "main": "./index.js",
+  "bin": {
+    "vanilla": "./cli.js"
+  },
   "scripts": {
     "test": "make lint"
   },
   "pre-commit": "test",
   "dependencies": {
+    "babel-loader": "^6.2.10",
+    "babel-plugin-dynamic-import-node": "^1.0.0",
     "babel-preset-vanilla": "^5.0.0",
     "babel-register": "^6.22.0",
     "continuation-local-storage": "^3.2.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "fs-promise": "^1.0.0",
     "lodash": "^4.17.4",
+    "nodemon": "^1.11.0",
+    "rxjs": "^5.1.0",
     "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0",
+    "webpack-manifest-plugin": "^1.1.0",
+    "webpack-node-externals": "^1.5.4",
+    "yargs": "^6.6.0",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
