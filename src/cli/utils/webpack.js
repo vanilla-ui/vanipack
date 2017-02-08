@@ -21,7 +21,8 @@ export const run = webpack => (
       }
     });
   }).then((stats) => {
-    console.log(stats.toString({ colors: true }));
+    process.stdout.write(stats.toString({ colors: true }));
+    process.stdout.write("\n");
     return stats;
   })
 );
@@ -40,7 +41,8 @@ export const watch = (webpack, options) => {
   }).subscribe(subject);
 
   subject.subscribe((stats) => {
-    console.log(stats.toString({ colors: true }));
+    process.stdout.write(stats.toString({ colors: true }));
+    process.stdout.write("\n");
     return stats;
   });
 
