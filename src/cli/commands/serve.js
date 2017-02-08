@@ -28,7 +28,7 @@ export const handler = async ({ config }) => {
 
   nodemon({
     script: require.resolve("../../../cli"),
-    args: ["start"],
+    args: config ? ["start", "--config", config] : ["start"],
     watch: [path.resolveMake(`./build/${getEnv()}/server`)],
   });
 };
