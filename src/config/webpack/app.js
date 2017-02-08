@@ -83,6 +83,7 @@ export default async () => {
       publicPath: config.path.public,
       filename: filenameTemplate,
       chunkFilename: filenameTemplate,
+      library: "main",
       libraryTarget: server ? "commonjs-module" : "var",
     },
 
