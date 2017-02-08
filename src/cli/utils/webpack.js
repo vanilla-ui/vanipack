@@ -26,7 +26,9 @@ export const run = webpack => (
   })
 );
 
-export const watch = (webpack, options) => (
+export const watch = (webpack, options) => {
+  const subject = new Rx.Subject();
+
   Rx.Observable.create((subscriber) => {
     webpack.watch(options, (error, stats) => {
       if (error) {
@@ -35,8 +37,12 @@ export const watch = (webpack, options) => (
         subscriber.next(stats);
       }
     });
-  }).map((stats) => {
+  }).subscribe(subject);
+
+  subject.subscribe((stats) => {
     console.log(stats.toString({ colors: true }));
     return stats;
-  })
-);
+  });
+
+  return subject;
+};
