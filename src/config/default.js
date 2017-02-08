@@ -16,11 +16,11 @@ export default {
   bind: {
     client: {
       host: "127.0.0.1",
-      port: 8081,
+      port: 8080,
     },
     server: {
       host: "127.0.0.1",
-      port: 8080,
+      port: 8000,
     },
   },
 };

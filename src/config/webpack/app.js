@@ -108,7 +108,11 @@ export default async () => {
       publicPath: config.path.public,
       contentBase: resolve(config.path.static),
       hot,
-      historyApiFallback: true,
+      proxy: {
+        "/": {
+          target: `http://${config.bind.server.host}:${config.bind.server.port}`,
+        },
+      },
     },
   });
 
