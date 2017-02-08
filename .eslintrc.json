@@ -1,6 +1,3 @@
 {
-  "extends": "vanilla",
-  "globals": {
-    "Zone": true
-  }
+  "extends": "vanilla"
 }
