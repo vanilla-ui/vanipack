@@ -171,6 +171,12 @@ export default async () => {
   });
 
   manager.plugin(
+    "ignore",
+    webpack.WatchIgnorePlugin,
+    [resolveMake(".")],
+  );
+
+  manager.plugin(
     "loader-options",
     webpack.LoaderOptionsPlugin,
     { minimize: production, options },
