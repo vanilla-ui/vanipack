@@ -2,6 +2,9 @@ import fs from "fs-promise";
 import webpack from "webpack";
 import nodeExternals from "webpack-node-externals";
 import ManifestPlugin from "webpack-manifest-plugin";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import atImport from "postcss-import";
+import cssnext from "postcss-cssnext";
 
 import { resolve, resolveMake } from "../../utils/path";
 import { Config } from "../../utils/webpack";
@@ -116,17 +119,55 @@ export default async () => {
     },
   });
 
+  manager.rule("eslint", {
+    enforce: "pre",
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: require.resolve("eslint-loader"),
+  });
   manager.rule("babel", {
     test: /\.js$/,
     exclude: /node_modules/,
-    use: [
-      {
-        loader: require.resolve("babel-loader"),
-        query: {
-          cacheDirectory: cache,
+    loader: require.resolve("babel-loader"),
+    options: {
+      cacheDirectory: cache,
+    },
+  });
+  manager.rule("css", {
+    test: /\.css$/,
+    use: ExtractTextPlugin.extract({
+      fallback: require.resolve("style-loader"),
+      use: [
+        {
+          loader: require.resolve("css-loader"),
+          options: {
+            sourceMap: true,
+            modules: true,
+            autoprefixer: false,
+          },
         },
-      },
-    ],
+        {
+          loader: require.resolve("postcss-loader"),
+          options: {
+            plugins: () => ([
+              atImport(),
+              cssnext(),
+            ]),
+          },
+        },
+      ],
+    }),
+  });
+  manager.rule("file", {
+    test: /\.(webp|png|ico|icon|jpg|jpeg|gif|svg|ttf|eot|woff|woff2)$/,
+    loader: require.resolve("file-loader"),
+    options: {
+      name: "assets/[name].[hash:8].[ext]",
+    },
+  });
+  manager.rule("html", {
+    test: /\.html$/,
+    loader: require.resolve("html-loader"),
   });
 
   manager.plugin(
@@ -145,6 +186,17 @@ export default async () => {
       webpack.NamedModulesPlugin,
     );
   }
+  manager.plugin(
+    "css",
+    ExtractTextPlugin,
+    {
+      filename: production
+        ? "assets/[name].[contenthash:8].css"
+        : "assets/[name].css",
+      allChunks: true,
+      ignoreOrder: true,
+    },
+  );
   if (production) {
     manager.plugin(
       "uglify-js",
