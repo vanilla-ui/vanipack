@@ -13,13 +13,10 @@ export default async ({
     config.plugins
       .map(async name => (await import(name)).default)
   ));
-  const zone = Zone.current.fork({
-    properties: {
-      env,
-      side,
-      config,
-      plugins,
-    },
-  });
-  return zone.run(async () => webpack(await app()));
+  return webpack(await app({
+    env,
+    side,
+    config,
+    plugins,
+  }));
 };

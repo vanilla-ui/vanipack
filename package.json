@@ -40,8 +40,7 @@
     "webpack-dev-server": "^2.3.0",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-node-externals": "^1.5.4",
-    "yargs": "^6.6.0",
-    "zone.js": "^0.7.6"
+    "yargs": "^6.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

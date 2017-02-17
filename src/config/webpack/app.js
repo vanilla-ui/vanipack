@@ -9,10 +9,8 @@ import cssnext from "postcss-cssnext";
 import { resolve, resolveMake } from "../../utils/path";
 import { Config } from "../../utils/webpack";
 
-const createEntry = async (name, entry) => {
-  const env = Zone.current.get("env");
-  const side = Zone.current.get("side");
-  const plugins = Zone.current.get("plugins");
+const createEntry = async (name, entry, opts) => {
+  const { env, side, plugins } = opts;
 
   const output = resolveMake(`./entry/${env}/${side}/${name}.js`);
   const entries = (Array.isArray(entry) ? entry : [entry])
@@ -43,7 +41,7 @@ const createEntry = async (name, entry) => {
   return output;
 };
 
-const getEntry = async (entry) => {
+const getEntry = async (entry, opts) => {
   if (typeof entry === "string" || Array.isArray(entry)) {
     return createEntry("default", entry);
   } else {
@@ -51,23 +49,20 @@ const getEntry = async (entry) => {
     await Promise.all((
       Object.keys(entry)
         .map(async (name) => {
-          result[name] = await createEntry(name, entry[name]);
+          result[name] = await createEntry(name, entry[name], opts);
         })
     ));
     return result;
   }
 };
 
-export default async () => {
-  const env = Zone.current.get("env");
+export default async (opts) => {
+  const { env, side, config, plugins } = opts;
   const production = env === "production";
   const cache = !production;
   const hot = env === "development";
-  const side = Zone.current.get("side");
   const server = side === "server";
   const client = side === "client";
-  const config = Zone.current.get("config");
-  const plugins = Zone.current.get("plugins");
 
   const filenameTemplate =
     client && production
@@ -79,7 +74,7 @@ export default async () => {
 
     entry: await getEntry({
       app: config.entry[side],
-    }),
+    }, opts),
 
     output: {
       path: resolveMake(`./build/${env}/${side}`),
@@ -225,7 +220,7 @@ export default async () => {
   for (const plugin of [...plugins, config]) {
     if (plugin.webpack) {
       // eslint-disable-next-line no-await-in-loop
-      await plugin.webpack(manager);
+      await plugin.webpack(manager, opts);
     }
   }
 
