@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://rawgit.com/vanilla-ui/logo/master/vanilla-make/logo.png" alt="Vanilla Make" width="400" align="middle" />
+  <a href="https://github.com/vanilla-ui/vanilla-make">
+    <img src="https://rawgit.com/vanilla-ui/logo/master/vanilla-make/logo.png" alt="Vanilla Make" width="400" align="middle" />
+  </a>
 </p>
 
 <p align="center">
