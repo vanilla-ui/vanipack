@@ -5,6 +5,10 @@
 </p>
 
 <p align="center">
+  Universal build system for isomorphic app.
+</p>
+
+<p align="center">
   <a href="https://www.npmjs.com/package/vanilla-make">
     <img src="https://img.shields.io/npm/v/vanilla-make.svg" alt="version" align="middle" />
   </a>
