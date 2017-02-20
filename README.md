@@ -9,15 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/vanilla-ui/vanilla-make">
-    <img src="https://img.shields.io/travis/vanilla-ui/vanilla-make.svg" alt="build status" align="middle" />
-  </a>
-  <a href="https://www.npmjs.com/package/vanilla-make">
-    <img src="https://img.shields.io/npm/v/vanilla-make.svg" alt="version" align="middle" />
-  </a>
-  <a href="https://www.npmjs.com/package/vanilla-make">
-    <img src="https://img.shields.io/npm/l/vanilla-make.svg" alt="license" align="middle" />
-  </a>
+  <a href="https://travis-ci.org/vanilla-ui/vanilla-make"><img src="https://img.shields.io/travis/vanilla-ui/vanilla-make.svg" alt="build status" align="middle" /></a>
+  <a href="https://www.npmjs.com/package/vanilla-make"><img src="https://img.shields.io/npm/v/vanilla-make.svg" alt="version" align="middle" /></a>
+  <a href="https://www.npmjs.com/package/vanilla-make"><img src="https://img.shields.io/npm/l/vanilla-make.svg" alt="license" align="middle" /></a>
 </p>
 
 ***
