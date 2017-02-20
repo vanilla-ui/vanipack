@@ -1,7 +1,7 @@
 require("babel-register")({
   ignore: filename => (
     /node_modules\/(?!vanilla)/.test(filename) ||
-    /\.vanilla/.test(filename)
+    /\.vanilla\/build/.test(filename)
   ),
 
   plugins: [
