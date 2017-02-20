@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["vanilla", { "modules": "commonjs" }]
+    "vanilla"
   ],
   "plugins": [
     "dynamic-import-node"
