@@ -122,7 +122,7 @@ export default async (opts) => {
   });
   manager.rule("babel", {
     test: /\.js$/,
-    exclude: /node_modules/,
+    exclude: /node_modules\/(?!vanilla)/,
     loader: require.resolve("babel-loader"),
     options: {
       cacheDirectory: cache,
