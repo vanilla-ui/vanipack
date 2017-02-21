@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/vanilla-ui/vanipack">
-    <img src="https://rawgit.com/vanilla-ui/logo/master/vanipack/logo.png" alt="Vanilla Make" width="400" align="middle" />
+    <img src="https://rawgit.com/vanilla-ui/logo/master/vanipack/logo.png" alt="Vanipack" width="400" align="middle" />
   </a>
 </p>
 
@@ -26,19 +26,19 @@ $ npm install --save vanipack
 
 ``` shell
 # start development server
-$ vanilla serve
+$ vanipack serve
 
 # build for production
-$ NODE_ENV=production vanilla build
+$ NODE_ENV=production vanipack build
 
 # start production server
-$ NODE_ENV=production vanilla start
+$ NODE_ENV=production vanipack start
 ```
 
 ## Config
 
 ``` javascript
-// .vanilla.js
+// vanipack.js
 
 export default {
   plugins: [],
