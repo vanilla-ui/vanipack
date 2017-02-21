@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/vanilla-ui/vanipack">
-    <img src="https://rawgit.com/vanilla-ui/logo/master/vanipack/logo.png" alt="Vanipack" width="400" align="middle" />
+    <img src="https://rawgit.com/vanilla-ui/logo/master/vanipack/logo.png" alt="Vanipack" width="800" height="240" align="middle" />
   </a>
 </p>
 
