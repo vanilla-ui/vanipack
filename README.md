@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://github.com/vanilla-ui/vanilla-make">
-    <img src="https://rawgit.com/vanilla-ui/logo/master/vanilla-make/logo.png" alt="Vanilla Make" width="400" align="middle" />
+  <a href="https://github.com/vanilla-ui/vanipack">
+    <img src="https://rawgit.com/vanilla-ui/logo/master/vanipack/logo.png" alt="Vanilla Make" width="400" align="middle" />
   </a>
 </p>
 
@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/vanilla-ui/vanilla-make"><img src="https://img.shields.io/travis/vanilla-ui/vanilla-make.svg" alt="build status" align="middle" /></a>
-  <a href="https://www.npmjs.com/package/vanilla-make"><img src="https://img.shields.io/npm/v/vanilla-make.svg" alt="version" align="middle" /></a>
-  <a href="https://www.npmjs.com/package/vanilla-make"><img src="https://img.shields.io/npm/l/vanilla-make.svg" alt="license" align="middle" /></a>
+  <a href="https://travis-ci.org/vanilla-ui/vanipack"><img src="https://img.shields.io/travis/vanilla-ui/vanipack.svg" alt="build status" align="middle" /></a>
+  <a href="https://www.npmjs.com/package/vanipack"><img src="https://img.shields.io/npm/v/vanipack.svg" alt="version" align="middle" /></a>
+  <a href="https://www.npmjs.com/package/vanipack"><img src="https://img.shields.io/npm/l/vanipack.svg" alt="license" align="middle" /></a>
 </p>
 
 ***
@@ -19,7 +19,7 @@
 ## Installation
 
 ``` shell
-$ npm install --save vanilla-make
+$ npm install --save vanipack
 ```
 
 ## Usage
@@ -70,11 +70,11 @@ export default {
 
 ## Plugins
 
-- [vanilla-make-plugin-react](https://github.com/vanilla-ui/vanilla-make-plugin-react)
+- [vanipack-plugin-react](https://github.com/vanilla-ui/vanipack-plugin-react)
 
 ## Examples
 
-- [vanilla-make-example](https://github.com/vanilla-ui/vanilla-make-example)
+- [vanipack-example](https://github.com/vanilla-ui/vanipack-example)
 
 ***
 
