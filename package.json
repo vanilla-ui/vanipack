@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "./index.js",
   "bin": {
-    "vanilla": "./cli.js"
+    "vanipack": "./cli.js"
   },
   "scripts": {
     "test": "make lint"
