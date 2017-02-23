@@ -1,7 +1,22 @@
 {
   "name": "vanipack",
   "version": "0.5.1",
+  "description": "Universal build system for isomorphic app.",
+  "keywords": ["vanipack", "webpack", "isomorphic"],
+  "homepage": "https://github.com/vanilla-ui/vanipack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vanilla-ui/vanipack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vanilla-ui/vanipack/issues"
+  },
   "license": "MIT",
+  "author": {
+    "name": "XiaoYan Li",
+    "email": "lxy.lixiaoyan@gmail.com",
+    "url": "https://github.com/lixiaoyan"
+  },
   "main": "./index.js",
   "bin": {
     "vanipack": "./cli.js"
