@@ -17,10 +17,8 @@ export const handler = async ({ config }) => {
     config,
   });
 
-  const devServer = createDevServer(client);
-
   await Promise.all([
-    wait(devServer),
+    wait(createDevServer(client)),
     watch(server)
       .first()
       .toPromise(),
