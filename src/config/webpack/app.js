@@ -149,10 +149,10 @@ export default async (opts) => {
         {
           loader: require.resolve("postcss-loader"),
           options: {
-            plugins: () => ([
+            plugins: [
               atImport(),
               cssnext(),
-            ]),
+            ],
           },
         },
       ],
