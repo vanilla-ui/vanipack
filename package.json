@@ -1,6 +1,6 @@
 {
   "name": "vanipack",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Universal build system for isomorphic app.",
   "keywords": ["vanipack", "webpack", "isomorphic"],
   "homepage": "https://github.com/vanilla-ui/vanipack",
