@@ -45,6 +45,8 @@ export default {
 
   webpack: null,
 
+  postcss: null,
+
   path: {
     public: "/",
     static: "./static",
