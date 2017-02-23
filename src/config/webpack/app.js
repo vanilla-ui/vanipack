@@ -59,8 +59,9 @@ const getEntry = async (entry, opts) => {
 export default async (opts) => {
   const { env, side, config, plugins } = opts;
   const production = env === "production";
-  const cache = !production;
-  const hot = env === "development";
+  const development = env === "development";
+  const cache = development;
+  const hot = development;
   const server = side === "server";
   const client = side === "client";
 
@@ -90,9 +91,9 @@ export default async (opts) => {
     externals: server ? nodeExternals() : {},
 
     devtool:
-      production
-        ? "source-map"
-        : "cheap-eval-source-map",
+      development
+        ? "cheap-eval-source-map"
+        : "source-map",
   };
 
   const manager = new Config({
