@@ -1,6 +1,7 @@
 import fs from "fs-promise";
 import webpack from "webpack";
 import nodeExternals from "webpack-node-externals";
+import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
 import ManifestPlugin from "webpack-manifest-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import FriendlyErrorsPlugin from "friendly-errors-webpack-plugin";
@@ -173,6 +174,11 @@ export default async (opts) => {
     "ignore",
     webpack.WatchIgnorePlugin,
     [resolveMake(".")],
+  );
+
+  manager.plugin(
+    "case-sensitive",
+    CaseSensitivePathsPlugin,
   );
 
   manager.plugin(
