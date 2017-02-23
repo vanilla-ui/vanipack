@@ -65,7 +65,7 @@ export default async (opts) => {
   const client = side === "client";
 
   const filenameTemplate =
-    client && production
+    production
       ? "assets/[name].[chunkhash:8].js"
       : "assets/[name].js";
 
