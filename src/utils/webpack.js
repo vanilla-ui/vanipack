@@ -43,8 +43,8 @@ export class Config {
 export const exclude = (modules = []) => (
   modules.length
     ? new RegExp((
-        /node_modules\/(?!#)/.source
-          .replace("#", modules.map(escapeStringRegExp).join("|"))
-      ))
+      /node_modules\/(?!#)/.source
+        .replace("#", modules.map(escapeStringRegExp).join("|"))
+    ))
     : /node_modules/
 );
