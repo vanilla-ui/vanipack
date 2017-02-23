@@ -9,7 +9,7 @@ import atImport from "postcss-import";
 import cssnext from "postcss-cssnext";
 
 import { resolve, resolveMake } from "../../utils/path";
-import { Config } from "../../utils/webpack";
+import { Config, exclude } from "../../utils/webpack";
 
 const createEntry = async (name, entry, opts) => {
   const { env, side, plugins } = opts;
@@ -121,13 +121,13 @@ export default async (opts) => {
     manager.rule("eslint", {
       enforce: "pre",
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: exclude(config.module.include),
       loader: require.resolve("eslint-loader"),
     });
   }
   manager.rule("babel", {
     test: /\.js$/,
-    exclude: /node_modules\/(?!vanipack)/,
+    exclude: exclude(["vanipack", ...config.module.include]),
     loader: require.resolve("babel-loader"),
     options: {
       cacheDirectory: cache,

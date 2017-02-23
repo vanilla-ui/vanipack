@@ -1,6 +1,6 @@
 import _ from "lodash";
+import escapeStringRegExp from "escape-string-regexp";
 
-// eslint-disable-next-line import/prefer-default-export
 export class Config {
   constructor(config) {
     this.config = config || {};
@@ -39,3 +39,12 @@ export class Config {
     };
   }
 }
+
+export const exclude = (modules = []) => (
+  modules.length
+    ? new RegExp((
+        /node_modules\/(?!#)/.source
+          .replace("#", modules.map(escapeStringRegExp).join("|"))
+      ))
+    : /node_modules/
+);

@@ -13,6 +13,10 @@ export default {
     server: "./entry/server",
   },
 
+  module: {
+    include: [],
+  },
+
   bind: {
     client: {
       host: "127.0.0.1",
