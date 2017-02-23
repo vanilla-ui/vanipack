@@ -205,16 +205,14 @@ export default async (opts) => {
       { sourceMap: true },
     );
   }
-  if (client) {
-    manager.plugin(
-      "manifest",
-      ManifestPlugin,
-      {
-        publicPath: config.path.public,
-        writeToFileEmit: true,
-      },
-    );
-  }
+  manager.plugin(
+    "manifest",
+    ManifestPlugin,
+    {
+      publicPath: client ? config.path.public : "",
+      writeToFileEmit: true,
+    },
+  );
 
   // eslint-disable-next-line no-restricted-syntax
   for (const plugin of [...plugins, config]) {
