@@ -44,41 +44,34 @@ const createEntry = async (name, entry, opts) => {
   return output;
 };
 
-const getEntry = async (entry, opts) => {
-  if (typeof entry === "string" || Array.isArray(entry)) {
-    return createEntry("default", entry);
-  } else {
-    const result = {};
-    await Promise.all((
-      Object.keys(entry)
-        .map(async (name) => {
-          result[name] = await createEntry(name, entry[name], opts);
-        })
-    ));
-    return result;
-  }
-};
-
 export default async (opts) => {
   const { env, side, config, plugins } = opts;
   const production = env === "production";
   const development = env === "development";
-  const cache = development;
-  const hot = development;
   const server = side === "server";
   const client = side === "client";
+  const cache = development;
+  const hot = development && client;
 
   const filenameTemplate =
     production
       ? "assets/[name].[chunkhash:8].js"
       : "assets/[name].js";
 
+  const entry = await createEntry("app", config.entry[side], opts);
+
   const options = {
     context: resolve("."),
 
-    entry: await getEntry({
-      app: config.entry[side],
-    }, opts),
+    entry: {
+      app: hot
+        ? [
+          `${require.resolve("webpack-dev-server/client")}?http://${config.bind.client.host}:${config.bind.client.port}`,
+          require.resolve("webpack/hot/only-dev-server"),
+          entry,
+        ]
+        : entry,
+    },
 
     output: {
       path: resolveMake(`./build/${env}/${side}`),
@@ -181,6 +174,13 @@ export default async (opts) => {
     "case-sensitive",
     CaseSensitivePathsPlugin,
   );
+
+  if (hot) {
+    manager.plugin(
+      "hot",
+      webpack.HotModuleReplacementPlugin,
+    );
+  }
 
   manager.plugin(
     "loader-options",
