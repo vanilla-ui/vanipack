@@ -129,28 +129,32 @@ export default async (opts) => {
   });
   manager.rule("css", {
     test: /\.css$/,
-    use: ExtractTextPlugin.extract({
-      fallback: require.resolve("style-loader"),
-      use: [
-        {
-          loader: require.resolve("css-loader"),
-          options: {
-            sourceMap: true,
-            modules: true,
-            autoprefixer: false,
+    use: [
+      hot && "style-loader",
+      ...ExtractTextPlugin.extract({
+        remove: !hot,
+        fallback: require.resolve("style-loader"),
+        use: [
+          {
+            loader: require.resolve("css-loader"),
+            options: {
+              sourceMap: true,
+              modules: true,
+              autoprefixer: false,
+            },
           },
-        },
-        {
-          loader: require.resolve("postcss-loader"),
-          options: {
-            plugins: wrap(config.postcss || (_ => _))([
-              atImport(),
-              cssnext(),
-            ]),
+          {
+            loader: require.resolve("postcss-loader"),
+            options: {
+              plugins: wrap(config.postcss || (_ => _))([
+                atImport(),
+                cssnext(),
+              ]),
+            },
           },
-        },
-      ],
-    }),
+        ],
+      }),
+    ].filter(Boolean),
   });
   manager.rule("file", {
     test: /\.(webp|png|ico|icon|jpg|jpeg|gif|svg|ttf|eot|woff|woff2)$/,
