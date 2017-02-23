@@ -1,12 +1,10 @@
 import Server from "webpack-dev-server";
 
-export default (webpack) => {
+export default (webpack, { output = true } = {}) => {
   const options = webpack.options.devServer;
   const server = new Server(webpack, {
     ...options,
-    stats: {
-      colors: true,
-    },
+    stats: output ? { colors: true } : "none",
   });
   server.listen(options.port, options.host);
   return server;

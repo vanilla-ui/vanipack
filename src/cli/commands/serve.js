@@ -19,7 +19,7 @@ export const handler = async ({ config }) => {
 
   await Promise.all([
     wait(createDevServer(client)),
-    watch(server)
+    watch(server, { output: false })
       .first()
       .toPromise(),
   ]);

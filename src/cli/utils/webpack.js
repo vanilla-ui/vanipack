@@ -11,7 +11,7 @@ export default ({ side, config }) => (
   })
 );
 
-export const run = webpack => (
+export const run = (webpack, { output = true } = {}) => (
   new Promise((resolve, reject) => {
     webpack.run((error, stats) => {
       if (error || stats.hasErrors()) {
@@ -21,13 +21,15 @@ export const run = webpack => (
       }
     });
   }).then((stats) => {
-    process.stdout.write(stats.toString({ colors: true }));
-    process.stdout.write("\n");
+    if (output) {
+      process.stdout.write(stats.toString({ colors: true }));
+      process.stdout.write("\n");
+    }
     return stats;
   })
 );
 
-export const watch = (webpack, options) => {
+export const watch = (webpack, { options, output = true } = {}) => {
   const subject = new Rx.Subject();
 
   Rx.Observable.create((subscriber) => {
@@ -40,11 +42,12 @@ export const watch = (webpack, options) => {
     });
   }).subscribe(subject);
 
-  subject.subscribe((stats) => {
-    process.stdout.write(stats.toString({ colors: true }));
-    process.stdout.write("\n");
-    return stats;
-  });
+  if (output) {
+    subject.subscribe((stats) => {
+      process.stdout.write(stats.toString({ colors: true }));
+      process.stdout.write("\n");
+    });
+  }
 
   return subject;
 };
