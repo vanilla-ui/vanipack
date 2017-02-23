@@ -2,7 +2,11 @@
   "name": "vanipack",
   "version": "0.5.2",
   "description": "Universal build system for isomorphic app.",
-  "keywords": ["vanipack", "webpack", "isomorphic"],
+  "keywords": [
+    "vanipack",
+    "webpack",
+    "isomorphic"
+  ],
   "homepage": "https://github.com/vanilla-ui/vanipack",
   "repository": {
     "type": "git",
@@ -43,6 +47,7 @@
     "eslint-plugin-react": "^6.10.0",
     "extract-text-webpack-plugin": "beta",
     "file-loader": "^0.10.0",
+    "friendly-errors-webpack-plugin": "^1.4.0",
     "fs-promise": "^1.0.0",
     "html-loader": "^0.4.4",
     "lodash": "^4.17.4",

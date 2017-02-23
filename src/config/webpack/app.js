@@ -3,6 +3,7 @@ import webpack from "webpack";
 import nodeExternals from "webpack-node-externals";
 import ManifestPlugin from "webpack-manifest-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
+import FriendlyErrorsPlugin from "friendly-errors-webpack-plugin";
 import atImport from "postcss-import";
 import cssnext from "postcss-cssnext";
 
@@ -216,6 +217,13 @@ export default async (opts) => {
       writeToFileEmit: true,
     },
   );
+
+  if (development && client) {
+    manager.plugin(
+      "output",
+      FriendlyErrorsPlugin,
+    );
+  }
 
   // eslint-disable-next-line no-restricted-syntax
   for (const plugin of [...plugins, config]) {
