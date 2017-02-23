@@ -115,12 +115,14 @@ export default async (opts) => {
     },
   });
 
-  manager.rule("eslint", {
-    enforce: "pre",
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: require.resolve("eslint-loader"),
-  });
+  if (development && client) {
+    manager.rule("eslint", {
+      enforce: "pre",
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: require.resolve("eslint-loader"),
+    });
+  }
   manager.rule("babel", {
     test: /\.js$/,
     exclude: /node_modules\/(?!vanipack)/,
