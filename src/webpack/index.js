@@ -1,5 +1,6 @@
 import webpack from "webpack";
 
+import { wrap } from "../utils/config";
 import getConfig from "../config";
 import app from "../config/webpack/app";
 
@@ -8,10 +9,10 @@ export default async ({
   side,
   config: configFile,
 }) => {
-  const config = await getConfig(configFile);
+  const config = await getConfig(configFile, env);
   const plugins = await Promise.all((
     config.plugins
-      .map(async name => (await import(name)).default)
+      .map(async name => wrap(await import(name))(env))
   ));
   return webpack(await app({
     env,
