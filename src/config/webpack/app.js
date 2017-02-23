@@ -8,6 +8,7 @@ import FriendlyErrorsPlugin from "friendly-errors-webpack-plugin";
 import atImport from "postcss-import";
 import cssnext from "postcss-cssnext";
 
+import { wrap } from "../../utils/config";
 import { resolve, resolveMake } from "../../utils/path";
 import { Config, exclude } from "../../utils/webpack";
 
@@ -149,10 +150,10 @@ export default async (opts) => {
         {
           loader: require.resolve("postcss-loader"),
           options: {
-            plugins: [
+            plugins: wrap(config.postcss || (_ => _))([
               atImport(),
               cssnext(),
-            ],
+            ]),
           },
         },
       ],
