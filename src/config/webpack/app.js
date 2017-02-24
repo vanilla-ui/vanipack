@@ -30,13 +30,21 @@ const createEntry = async (name, entry, opts) => {
       `import plugin${index} from ${JSON.stringify(file)};`
     )),
 
+    `const entry = (...args) => entry${entries.length - 1}(...args);`,
+
     `const plugins = [${
       pluginEntries
         .map((file, index) => `plugin${index}`)
         .join(", ")
     }];`,
 
-    `export default plugins.reduce((entry, plugin) => plugin(entry), entry${entries.length - 1});`,
+    `const accept = (func) => module.hot && module.hot.accept([${
+      entries
+        .map(file => JSON.stringify(file))
+        .join(", ")
+    }], func);`,
+
+    "export default plugins.reduce((entry, plugin) => plugin(entry, { accept }), entry);",
   ];
 
   await fs.outputFile(output, content.join("\n"));
