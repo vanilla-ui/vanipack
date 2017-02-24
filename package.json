@@ -1,6 +1,6 @@
 {
   "name": "vanipack",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Universal build system for isomorphic app.",
   "keywords": [
     "vanipack",
