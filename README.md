@@ -16,6 +16,13 @@
 
 ***
 
+## Features
+
+- Single dependency
+- Plugin system
+- Hot reload
+- Fully customizable
+
 ## Installation
 
 ``` shell
