@@ -16,6 +16,13 @@
 
 ***
 
+<p align="center">
+  <img src="https://rawgit.com/vanilla-ui/logo/master/vanipack/intro.png" alt="Vanipack" width="640" align="middle" />
+</p>
+
+
+***
+
 ## Features
 
 - Single dependency
