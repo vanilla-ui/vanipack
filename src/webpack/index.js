@@ -12,6 +12,8 @@ export default async ({
   const config = await getConfig(configFile, env);
   const plugins = await Promise.all((
     config.plugins
+      .slice(0)
+      .reverse()
       .map(async name => wrap(await import(name))(env))
   ));
   return webpack(await app({
