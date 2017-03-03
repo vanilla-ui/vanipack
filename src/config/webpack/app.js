@@ -2,8 +2,9 @@ import fs from "fs-promise";
 import webpack from "webpack";
 import nodeExternals from "webpack-node-externals";
 import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
-import ManifestPlugin from "webpack-manifest-plugin";
+import StyleLintPlugin from "stylelint-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
+import ManifestPlugin from "webpack-manifest-plugin";
 import FriendlyErrorsPlugin from "friendly-errors-webpack-plugin";
 import atImport from "postcss-import";
 import cssnext from "postcss-cssnext";
@@ -181,19 +182,16 @@ export default async (opts) => {
     webpack.WatchIgnorePlugin,
     [resolveMake(".")],
   );
-
   manager.plugin(
     "case-sensitive",
     CaseSensitivePathsPlugin,
   );
-
   if (hot) {
     manager.plugin(
       "hot",
       webpack.HotModuleReplacementPlugin,
     );
   }
-
   manager.plugin(
     "loader-options",
     webpack.LoaderOptionsPlugin,
@@ -208,6 +206,13 @@ export default async (opts) => {
     manager.plugin(
       "named-modules",
       webpack.NamedModulesPlugin,
+    );
+  }
+  if (development && client) {
+    manager.plugin(
+      "stylelint",
+      StyleLintPlugin,
+      { files: "**/*.css" },
     );
   }
   manager.plugin(
@@ -236,7 +241,6 @@ export default async (opts) => {
       writeToFileEmit: true,
     },
   );
-
   if (development && client) {
     manager.plugin(
       "output",
