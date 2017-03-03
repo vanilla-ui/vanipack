@@ -13,6 +13,8 @@ import { wrap } from "../../utils/config";
 import { resolve, resolveMake } from "../../utils/path";
 import { Config, exclude } from "../../utils/webpack";
 
+const LINT_ENABLED = false;
+
 const createEntry = async (name, entry, opts) => {
   const { env, side, plugins } = opts;
 
@@ -120,7 +122,7 @@ export default async (opts) => {
     },
   });
 
-  if (development && client) {
+  if (development && client && LINT_ENABLED) {
     manager.rule("eslint", {
       enforce: "pre",
       test: /\.js$/,
@@ -208,7 +210,7 @@ export default async (opts) => {
       webpack.NamedModulesPlugin,
     );
   }
-  if (development && client) {
+  if (development && client && LINT_ENABLED) {
     manager.plugin(
       "stylelint",
       StyleLintPlugin,
