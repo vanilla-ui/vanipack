@@ -30,7 +30,6 @@
   },
   "pre-commit": "test",
   "dependencies": {
-    "babel-eslint": "^7.1.1",
     "babel-loader": "^6.3.2",
     "babel-plugin-dynamic-import-node": "^1.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
@@ -40,12 +39,6 @@
     "continuation-local-storage": "^3.2.0",
     "css-loader": "^0.26.2",
     "escape-string-regexp": "^1.0.5",
-    "eslint": "^3.15.0",
-    "eslint-config-vanilla": "^5.1.0",
-    "eslint-plugin-babel": "^4.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.10.0",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.1",
     "friendly-errors-webpack-plugin": "^1.4.0",
@@ -67,9 +60,6 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "eslint": "^3.15.0",
-    "eslint-config-vanilla": "^5.1.0",
-    "eslint-plugin-babel": "^4.0.1",
-    "eslint-plugin-import": "^2.2.0",
     "pre-commit": "^1.2.2"
   }
 }
