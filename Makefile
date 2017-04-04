@@ -6,4 +6,4 @@ lint:
 prettier:
 	$(BIN)/prettier --trailing-comma all --write "./src/**/*.js"
 
-.PHONY: lint
+.PHONY: lint prettier
