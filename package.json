@@ -25,6 +25,16 @@
   "bin": {
     "vanipack": "./cli.js"
   },
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "prettier --trailing-comma all --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "babel-loader": "^6.3.2",
     "babel-plugin-dynamic-import-node": "^1.0.0",
@@ -40,6 +50,8 @@
     "friendly-errors-webpack-plugin": "^1.4.0",
     "fs-promise": "^1.0.0",
     "html-loader": "^0.4.5",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
     "lodash": "^4.17.4",
     "nodemon": "^1.11.0",
     "postcss-cssnext": "^2.9.0",
