@@ -1,8 +1,10 @@
 {
   "presets": [
-    "vanilla"
+    "env",
+    "stage-0"
   ],
   "plugins": [
-    "dynamic-import-node"
+    "dynamic-import-node",
+    "transform-runtime"
   ]
 }
