@@ -1,8 +1,9 @@
 BIN := ./node_modules/.bin
 
-ESLINT := $(BIN)/eslint
-
 lint:
-	$(ESLINT) .
+	$(BIN)/eslint .
+
+prettier:
+	$(BIN)/prettier --trailing-comma all --write "./src/**/*.js"
 
 .PHONY: lint

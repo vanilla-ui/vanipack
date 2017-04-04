@@ -16,33 +16,29 @@ const createEntry = async (name, entry, opts) => {
   const { env, side, plugins } = opts;
 
   const output = resolveMake(`./entry/${env}/${side}/${name}.js`);
-  const entries = (Array.isArray(entry) ? entry : [entry])
-    .map(file => resolve(file));
+  const entries = (Array.isArray(entry) ? entry : [entry]).map(file =>
+    resolve(file));
   const pluginEntries = plugins
     .filter(plugin => plugin.entry && plugin.entry[side])
     .map(plugin => plugin.entry[side]);
 
   const content = [
-    ...entries.map((file, index) => (
-      `import entry${index} from ${JSON.stringify(file)};`
-    )),
-    ...pluginEntries.map((file, index) => (
-      `import plugin${index} from ${JSON.stringify(file)};`
-    )),
+    ...entries.map(
+      (file, index) => `import entry${index} from ${JSON.stringify(file)};`,
+    ),
+    ...pluginEntries.map(
+      (file, index) => `import plugin${index} from ${JSON.stringify(file)};`,
+    ),
 
     `const entry = (...args) => entry${entries.length - 1}(...args);`,
 
-    `const plugins = [${
-      pluginEntries
-        .map((file, index) => `plugin${index}`)
-        .join(", ")
-    }];`,
+    `const plugins = [${pluginEntries
+      .map((file, index) => `plugin${index}`)
+      .join(", ")}];`,
 
-    `const accept = (func) => module.hot && module.hot.accept([${
-      entries
-        .map(file => JSON.stringify(file))
-        .join(", ")
-    }], func);`,
+    `const accept = (func) => module.hot && module.hot.accept([${entries
+      .map(file => JSON.stringify(file))
+      .join(", ")}], func);`,
 
     "export default plugins.reduce((entry, plugin) => plugin(entry, { accept }), entry);",
   ];
@@ -52,7 +48,7 @@ const createEntry = async (name, entry, opts) => {
   return output;
 };
 
-export default async (opts) => {
+export default async opts => {
   const { env, side, config, plugins } = opts;
   const production = env === "production";
   const development = env === "development";
@@ -61,10 +57,9 @@ export default async (opts) => {
   const cache = development;
   const hot = development && client;
 
-  const filenameTemplate =
-    production
-      ? "assets/[name].[chunkhash:8].js"
-      : "assets/[name].js";
+  const filenameTemplate = production
+    ? "assets/[name].[chunkhash:8].js"
+    : "assets/[name].js";
 
   const entry = await createEntry("app", config.entry[side], opts);
 
@@ -74,10 +69,10 @@ export default async (opts) => {
     entry: {
       app: hot
         ? [
-          `${require.resolve("webpack-dev-server/client")}?http://${config.bind.client.host}:${config.bind.client.port}`,
-          require.resolve("webpack/hot/only-dev-server"),
-          entry,
-        ]
+            `${require.resolve("webpack-dev-server/client")}?http://${config.bind.client.host}:${config.bind.client.port}`,
+            require.resolve("webpack/hot/only-dev-server"),
+            entry,
+          ]
         : entry,
     },
 
@@ -94,10 +89,7 @@ export default async (opts) => {
 
     externals: server ? nodeExternals() : {},
 
-    devtool:
-      development
-        ? "cheap-eval-source-map"
-        : "source-map",
+    devtool: development ? "cheap-eval-source-map" : "source-map",
   };
 
   const manager = new Config({
@@ -144,10 +136,7 @@ export default async (opts) => {
         {
           loader: require.resolve("postcss-loader"),
           options: {
-            plugins: wrap(config.postcss || (_ => _))([
-              atImport(),
-              cssnext(),
-            ]),
+            plugins: wrap(config.postcss || (_ => _))([atImport(), cssnext()]),
           },
         },
       ],
@@ -165,69 +154,38 @@ export default async (opts) => {
     loader: require.resolve("html-loader"),
   });
 
-  manager.plugin(
-    "ignore",
-    webpack.WatchIgnorePlugin,
-    [resolveMake(".")],
-  );
-  manager.plugin(
-    "case-sensitive",
-    CaseSensitivePathsPlugin,
-  );
+  manager.plugin("ignore", webpack.WatchIgnorePlugin, [resolveMake(".")]);
+  manager.plugin("case-sensitive", CaseSensitivePathsPlugin);
   if (hot) {
-    manager.plugin(
-      "hot",
-      webpack.HotModuleReplacementPlugin,
-    );
+    manager.plugin("hot", webpack.HotModuleReplacementPlugin);
   }
-  manager.plugin(
-    "loader-options",
-    webpack.LoaderOptionsPlugin,
-    { minimize: production, options },
-  );
-  manager.plugin(
-    "environment",
-    webpack.EnvironmentPlugin,
-    { NODE_ENV: env },
-  );
+  manager.plugin("loader-options", webpack.LoaderOptionsPlugin, {
+    minimize: production,
+    options,
+  });
+  manager.plugin("environment", webpack.EnvironmentPlugin, { NODE_ENV: env });
   if (!production) {
-    manager.plugin(
-      "named-modules",
-      webpack.NamedModulesPlugin,
-    );
+    manager.plugin("named-modules", webpack.NamedModulesPlugin);
   }
-  manager.plugin(
-    "css",
-    ExtractTextPlugin,
-    {
-      disable: hot,
-      filename: production
-        ? "assets/[name].[contenthash:8].css"
-        : "assets/[name].css",
-      allChunks: true,
-      ignoreOrder: true,
-    },
-  );
+  manager.plugin("css", ExtractTextPlugin, {
+    disable: hot,
+    filename: production
+      ? "assets/[name].[contenthash:8].css"
+      : "assets/[name].css",
+    allChunks: true,
+    ignoreOrder: true,
+  });
   if (production) {
-    manager.plugin(
-      "uglify-js",
-      webpack.optimize.UglifyJsPlugin,
-      { sourceMap: true },
-    );
+    manager.plugin("uglify-js", webpack.optimize.UglifyJsPlugin, {
+      sourceMap: true,
+    });
   }
-  manager.plugin(
-    "manifest",
-    ManifestPlugin,
-    {
-      publicPath: client ? config.path.public : "",
-      writeToFileEmit: true,
-    },
-  );
+  manager.plugin("manifest", ManifestPlugin, {
+    publicPath: client ? config.path.public : "",
+    writeToFileEmit: true,
+  });
   if (development && client) {
-    manager.plugin(
-      "output",
-      FriendlyErrorsPlugin,
-    );
+    manager.plugin("output", FriendlyErrorsPlugin);
   }
 
   // eslint-disable-next-line no-restricted-syntax

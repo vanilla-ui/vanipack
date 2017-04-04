@@ -10,8 +10,7 @@ export default (webpack, { output = true } = {}) => {
   return server;
 };
 
-export const wait = server => (
-  new Promise((resolve) => {
+export const wait = server =>
+  new Promise(resolve => {
     server.middleware.waitUntilValid(resolve);
-  })
-);
+  });

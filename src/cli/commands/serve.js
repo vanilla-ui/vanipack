@@ -19,9 +19,7 @@ export const handler = async ({ config }) => {
 
   await Promise.all([
     wait(createDevServer(client, { output: false })),
-    watch(server, { output: false })
-      .first()
-      .toPromise(),
+    watch(server, { output: false }).first().toPromise(),
   ]);
 
   nodemon({

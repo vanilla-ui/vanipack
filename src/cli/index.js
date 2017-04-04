@@ -9,5 +9,4 @@ yargs
   .alias("config", "c")
   .commandDir("./commands")
   .demandCommand(1)
-  .help()
-  .argv;
+  .help().argv;
