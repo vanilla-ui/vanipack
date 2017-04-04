@@ -2,7 +2,6 @@ import fs from "fs-promise";
 import webpack from "webpack";
 import nodeExternals from "webpack-node-externals";
 import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
-import StyleLintPlugin from "stylelint-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import ManifestPlugin from "webpack-manifest-plugin";
 import FriendlyErrorsPlugin from "friendly-errors-webpack-plugin";
@@ -12,8 +11,6 @@ import cssnext from "postcss-cssnext";
 import { wrap } from "../../utils/config";
 import { resolve, resolveMake } from "../../utils/path";
 import { Config, exclude } from "../../utils/webpack";
-
-const LINT_ENABLED = false;
 
 const createEntry = async (name, entry, opts) => {
   const { env, side, plugins } = opts;
@@ -122,14 +119,6 @@ export default async (opts) => {
     },
   });
 
-  if (development && client && LINT_ENABLED) {
-    manager.rule("eslint", {
-      enforce: "pre",
-      test: /\.js$/,
-      exclude: exclude(config.module.include),
-      loader: require.resolve("eslint-loader"),
-    });
-  }
   manager.rule("babel", {
     test: /\.js$/,
     exclude: exclude(["vanipack", ...config.module.include]),
@@ -205,13 +194,6 @@ export default async (opts) => {
     manager.plugin(
       "named-modules",
       webpack.NamedModulesPlugin,
-    );
-  }
-  if (development && client && LINT_ENABLED) {
-    manager.plugin(
-      "stylelint",
-      StyleLintPlugin,
-      { files: "**/*.css" },
     );
   }
   manager.plugin(
